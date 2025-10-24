@@ -9,12 +9,16 @@ import SwiftUI
 
 @main
 struct PDFAppApp: App {
-    let persistenceController = PersistenceController.shared
-
+    
+    @AppStorage("hasSeenWelcome") private var hasSeenWelcome = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
+                    if hasSeenWelcome {
+                        DocumentsListView()
+                    } else {
+                        WelcomeView()
+                    }
+                }
     }
 }
